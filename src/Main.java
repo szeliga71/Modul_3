@@ -3,11 +3,11 @@ import zad2.TodoList;
 import zad3.LiczenieSlowWTekscie;
 import zad4.SortowanieListy;
 import zad4.Student;
+import zad5.Author;
+import zad5.Book;
+import zad5.Library;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -100,6 +100,12 @@ public class Main {
         }
 
         //zad 5
+
+        Map<Author,List<Book>> libraryList=new HashMap<>();
+
+        Library library =new Library(libraryList);
+
+
     }
 }
 
