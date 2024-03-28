@@ -10,30 +10,106 @@ public class Library {
     Map<Author,List<Book>>libraryOperationList;
 
     public Library(Map<Author, List<Book>> libraryOperationList) {
+
         this.libraryOperationList = libraryOperationList;
     }
 
-    public List<Book> getBooksOfAuthor(String authorName){
-        return null;
+
+
+    public void getBooksOfAuthor(String authorName){
+
+        libraryOperationList.entrySet().stream()
+                .filter(entry->authorName.equals(entry.getKey().getName()))
+                .flatMap(entry->entry.getValue().stream())
+                .sorted()
+                .forEach(System.out::println);
+
     }
     public void addBookToAuthor(String authorName,Book book){
 
-    }
-    public List<Author> getAllAuthors(){
 
-        List<Author>authorList;
+        for(Map.Entry<Author,List<Book>>entry:libraryOperationList.entrySet()){
+            if(authorName.equals(entry.getKey().getName())){
+                entry.getValue().add(book);
+            }
+        }
 
-        authorList= new ArrayList<>(libraryOperationList.keySet());
+        // wersja stream
+        libraryOperationList.entrySet().stream()
+                .filter(entry->authorName.equals(entry.getKey().getName()))
+                .findFirst()
+                .ifPresentOrElse(
+                        entry->entry.getValue().add(book),
+                        ()-> System.out.println(" nie znaleziono autora o nazwisku "+authorName)
+                );
 
-        return authorList;
     }
-    public List<Book> getAllBooks(){
-        return null;
+
+
+
+
+    public void getAllAuthors() {
+        libraryOperationList.keySet().forEach(System.out::println);
+
+
+
+        for (Map.Entry<Author, List<Book>> entry :libraryOperationList.entrySet()){
+            System.out.println(entry.getKey());
+        }
+
+        System.out.println(libraryOperationList.keySet());
+
     }
-    public void getAllBooksAndAuthors(){}
+
+    public void getAllBooks(){
+        libraryOperationList.values().stream().sorted().forEach(System.out::println);
+
+
+    }
+
+    public void getAllBooksAndAuthors(){
+
+        libraryOperationList.entrySet().stream().sorted().forEach(System.out::println);
+    }
+
+
     public void addAuthor(Author author){
         libraryOperationList.put(author,new ArrayList<>());
     }
 
+//===================================================================
+public List<Book> getBooksOfAuthorToList(String authorName){
 
+    List<Book>authorBooks=new ArrayList<>();
+
+    for(Map.Entry<Author,List<Book>>entry:libraryOperationList.entrySet()){
+        if(authorName.equals(entry.getKey().getName())){
+            authorBooks=entry.getValue();
+        }
+    }
+
+    return authorBooks=libraryOperationList.entrySet().stream()
+            .filter(entry->authorName.equals(entry.getKey().getName()))
+            .flatMap(entry->entry.getValue().stream())
+            .collect(Collectors.toList());
+
+    //return authorBooks;
+}
+    public List<Author> getAllAuthorsToList(){
+
+        return new ArrayList<>(libraryOperationList.keySet());
+
+    }
+    public List<Book> getAllBooksToList(){
+
+        List <Book> allBooks=new ArrayList<>();
+
+        for(List<Book>book:libraryOperationList.values()){
+            allBooks.addAll(book);
+
+
+            allBooks=libraryOperationList.values().stream().flatMap(List::stream).collect(Collectors.toList());
+        }
+
+        return allBooks; }
 }
