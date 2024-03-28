@@ -24,4 +24,13 @@ public class Author {
     public String getFavouriteGenre() {
         return favouriteGenre;
     }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", favouriteGenre='" + favouriteGenre + '\'' +
+                '}';
+    }
 }

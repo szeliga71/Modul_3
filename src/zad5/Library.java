@@ -1,6 +1,7 @@
 package zad5;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -35,13 +36,13 @@ public class Library {
         }
 
         // wersja stream
-        libraryOperationList.entrySet().stream()
+   /*     libraryOperationList.entrySet().stream()
                 .filter(entry->authorName.equals(entry.getKey().getName()))
                 .findFirst()
                 .ifPresentOrElse(
                         entry->entry.getValue().add(book),
                         ()-> System.out.println(" nie znaleziono autora o nazwisku "+authorName)
-                );
+                );*/
 
     }
 
@@ -49,7 +50,7 @@ public class Library {
 
 
     public void getAllAuthors() {
-        libraryOperationList.keySet().forEach(System.out::println);
+      //  libraryOperationList.keySet().forEach(System.out::println);
 
 
 
@@ -57,19 +58,21 @@ public class Library {
             System.out.println(entry.getKey());
         }
 
-        System.out.println(libraryOperationList.keySet());
+       // System.out.println(libraryOperationList.keySet());
 
     }
 
     public void getAllBooks(){
-        libraryOperationList.values().stream().sorted().forEach(System.out::println);
+        libraryOperationList.values().stream().flatMap(List::stream).sorted(Comparator.comparing(Book::getNumberOfPages)).forEach(System.out::println);
+
+
 
 
     }
 
     public void getAllBooksAndAuthors(){
 
-        libraryOperationList.entrySet().stream().sorted().forEach(System.out::println);
+        libraryOperationList.entrySet().stream().forEach(System.out::println);
     }
 
 

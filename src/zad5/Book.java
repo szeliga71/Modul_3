@@ -29,4 +29,13 @@ public class Book implements Comparable<Book>{
 
         return Integer.compare(this.numberOfPages,book.numberOfPages);
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + title + '\'' +
+                ", genre='" + genre + '\'' +
+                ", numberOfPages=" + numberOfPages +
+                '}';
+    }
 }
