@@ -19,6 +19,7 @@ public class SumowanieTablicy {
             }else{
             sum += number;}
         }
+
         }
         return sum;
     }
