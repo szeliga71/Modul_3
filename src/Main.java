@@ -16,10 +16,10 @@ public class Main {
         // zad 1
         SumowanieTablicy st = new SumowanieTablicy();
 
-        int[] tab = {3, 21, 9};
+        int[] tab = {3, -21, 9};
         System.out.println(st.sumArray(tab));
 
-        System.out.println(st.sumArrayStr(tab));
+        //System.out.println(st.sumArrayStr(tab));
 
         // zad 2
 
