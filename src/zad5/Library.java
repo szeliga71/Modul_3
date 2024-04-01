@@ -58,12 +58,19 @@ public class Library {
             System.out.println(entry.getKey());
         }
 
-       // System.out.println(libraryOperationList.keySet());
+
 
     }
 
     public void getAllBooks(){
+
         libraryOperationList.values().stream().flatMap(List::stream).sorted(Comparator.comparing(Book::getNumberOfPages)).forEach(System.out::println);
+
+
+
+        /*for (Map.Entry<Author, List<Book>> entry :libraryOperationList.entrySet()){
+            System.out.println(entry.getValue());
+        }*/
 
 
 
@@ -73,6 +80,14 @@ public class Library {
     public void getAllBooksAndAuthors(){
 
         libraryOperationList.entrySet().stream().forEach(System.out::println);
+
+
+
+       /* for (Map.Entry<Author, List<Book>> entry :libraryOperationList.entrySet()){
+            System.out.println(entry.toString());
+        }*/
+
+
     }
 
 

@@ -82,6 +82,7 @@ public class Main {
         }
 
         System.out.println();
+
         SortowanieListy sortowanieListyComparator=new SortowanieListy();
 
         students.sort(sortowanieListyComparator);
