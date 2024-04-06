@@ -20,10 +20,13 @@ public class TodoList {
         }
     }
     public void remove(int number){
-        try{
-        list.remove(number-1);}
-        catch(IndexOutOfBoundsException e){
-            System.out.println(" prosze podac wlasciwa pozycje do usuniecia !");
+
+        if((number-1>0)&&(number-1 < list.size())){
+        list.remove(number-1);
+        }else {
+            System.out.println(" prosze podac wlasciwy numer !");
+        }
+
         }
     }
-}
+

@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class Library {
 
-    Map<Author,List<Book>>libraryOperationList;
+    private Map<Author,List<Book>>libraryOperationList;
 
     public Library(Map<Author, List<Book>> libraryOperationList) {
 
@@ -19,19 +19,29 @@ public class Library {
 
     public void getBooksOfAuthor(String authorName){
 
-        libraryOperationList.entrySet().stream()
-                .filter(entry->authorName.equals(entry.getKey().getName()))
-                .flatMap(entry->entry.getValue().stream())
-                .sorted()
-                .forEach(System.out::println);
+
+        for(Author author:libraryOperationList.keySet()){
+            if(authorName.equals(author.getName())){
+                libraryOperationList.get(author).forEach(System.out::println);
+
+            }
+        }
+
+      /*  libraryOperationList.keySet().stream()
+                .filter(key->authorName.equals(key.getName()))
+                .map(libraryOperationList::get)
+                .flatMap(List::stream)
+                .forEach(System.out::println);*/
+
 
     }
     public void addBookToAuthor(String authorName,Book book){
 
 
-        for(Map.Entry<Author,List<Book>>entry:libraryOperationList.entrySet()){
-            if(authorName.equals(entry.getKey().getName())){
-                entry.getValue().add(book);
+        for(Author author:libraryOperationList.keySet()){
+            if(authorName.equals(author.getName())){
+                libraryOperationList.get(author).add(book);
+
             }
         }
 
@@ -50,15 +60,12 @@ public class Library {
 
 
     public void getAllAuthors() {
+
       //  libraryOperationList.keySet().forEach(System.out::println);
 
-
-
-        for (Map.Entry<Author, List<Book>> entry :libraryOperationList.entrySet()){
-            System.out.println(entry.getKey());
+        for(Author author:libraryOperationList.keySet()){
+            System.out.println(author);
         }
-
-
 
     }
 
@@ -71,8 +78,6 @@ public class Library {
         /*for (Map.Entry<Author, List<Book>> entry :libraryOperationList.entrySet()){
             System.out.println(entry.getValue());
         }*/
-
-
 
 
     }
@@ -108,7 +113,7 @@ public List<Book> getBooksOfAuthorToList(String authorName){
         }
     }
 
-    return authorBooks=libraryOperationList.entrySet().stream()
+    return libraryOperationList.entrySet().stream()
             .filter(entry->authorName.equals(entry.getKey().getName()))
             .flatMap(entry->entry.getValue().stream())
             .collect(Collectors.toList());
@@ -128,8 +133,8 @@ public List<Book> getBooksOfAuthorToList(String authorName){
             allBooks.addAll(book);
 
 
-            allBooks=libraryOperationList.values().stream().flatMap(List::stream).collect(Collectors.toList());
+            libraryOperationList.values().stream().flatMap(List::stream).collect(Collectors.toList());
         }
 
-        return allBooks; }
+        return libraryOperationList.values().stream().flatMap(List::stream).collect(Collectors.toList()); }
 }

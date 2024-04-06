@@ -12,11 +12,12 @@ public class LiczenieSlowWTekscieTest {
     @Test
     public void chectForGivenText() {
 
-        String testText = "Ala ma kota,kota ma Ala";
+        String testText = "Ala ma, ]]] kota,kota ma! ]]] Ala";
 
         Map<String, Integer> testMap = new HashMap<>();
         testMap.put("Ala", 2);
         testMap.put("ma",2);
+        //testMap.put("]]]",2);
         testMap.put("kota",2);
 
         Assertions.assertEquals(lstTest.countWords(testText), testMap);
