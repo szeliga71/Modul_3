@@ -17,6 +17,7 @@ public class SumowanieTablicy {
         for (int number : numbers) {
             if(number<=0){
                 System.out.println(" dostarczona tablica nie zawiera tylko liczb naturalnych");
+                sum=0;
                 break;
             }else{
             sum += number;}

@@ -1,5 +1,8 @@
 package zad4;
 
+import java.util.Collections;
+import java.util.List;
+
 public class Student implements Comparable<Student>{
 
     private int age;
@@ -12,6 +15,8 @@ public class Student implements Comparable<Student>{
         this.height = height;
         this.name = name;
         this.lastName = lastName;
+
+
     }
 
     public int getAge() {
@@ -30,6 +35,9 @@ public class Student implements Comparable<Student>{
         return lastName;
     }
 
+
+
+
     @Override
     public int compareTo(Student student) {
         return this.lastName.compareTo(student.getLastName());
@@ -45,4 +53,6 @@ public class Student implements Comparable<Student>{
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
+
+
 }

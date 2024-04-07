@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import zad4.Student;
@@ -24,6 +25,7 @@ public class SortowanieListyTest {
     List<Student> studentsTestBefore = Arrays.asList(st1, st2, st3, st4, st5, st6, st7);
     List<Student> studentsTestAfter = new ArrayList<>(studentsTestBefore);
 
+
     @BeforeEach
     public void prepare() {
         List<Student> studentsTestBefore = Arrays.asList(st1, st2, st3, st4, st5, st6, st7);
@@ -34,10 +36,34 @@ public class SortowanieListyTest {
     @Test
     public void arrayComparisonTestAfterSort(){
         Collections.sort(studentsTestBefore);
-        Assertions.assertArrayEquals(studentsTestBefore.toArray(), studentsTestAfter.toArray());
+        Assertions.assertNotEquals(studentsTestBefore.toArray(), studentsTestAfter.toArray());
     }
     @Test
     public void arrayComparisonTestBeforeSort(){
         Assertions.assertArrayEquals(studentsTestBefore.toArray(), studentsTestAfter.toArray());
     }
+    @Test
+    public void arrayComparisonTestEmptyArray(){
+
+        List<Student>studentsTestBefore1=new ArrayList<>();
+        List<Student>studentsTestAfter1=new ArrayList<>(studentsTestBefore1);
+
+        Collections.sort(studentsTestAfter1);
+
+        Assertions.assertArrayEquals(studentsTestBefore1.toArray(), studentsTestAfter1.toArray());
+    }
+
+    /*
+    @Test
+    public void arrayComparisonTestNull(){
+
+        List<Student>studentsTestBefore1=null;
+        List<Student>studentsTestAfter1=new ArrayList<>(studentsTestBefore1);
+
+        Collections.sort(studentsTestAfter1);
+
+        Assertions.assertArrayEquals(studentsTestBefore1.toArray(), studentsTestAfter1.toArray());
+    }
+    */
+
 }

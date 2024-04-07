@@ -68,6 +68,16 @@ public class Main {
 
         List<Student> students = Arrays.asList(st1, st2, st3, st4, st5, st6,st7);
 
+        //List<Student>students1=null;
+        //Collections.sort(students1);
+
+        List<Student>students2=new ArrayList<>();
+
+        System.out.println();
+
+        Collections.sort(students2);
+
+        System.out.println();
 
         // unsorted
         for (Student student : students) {

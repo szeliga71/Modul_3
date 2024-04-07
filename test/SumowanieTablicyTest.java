@@ -2,7 +2,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import zad1.SumowanieTablicy;
 
-public class TestSumowanieTablicy {
+public class SumowanieTablicyTest {
 
     SumowanieTablicy stTest=new SumowanieTablicy();
 
