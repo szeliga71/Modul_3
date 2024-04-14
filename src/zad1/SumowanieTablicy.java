@@ -7,7 +7,7 @@ public class SumowanieTablicy {
 
     public long sumArray(int[] numbers) {
 
-        long sum = 0;
+          long sum = 0;
 
        if(numbers==null){
         }

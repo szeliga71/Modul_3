@@ -25,6 +25,7 @@ public class Author {
         return favouriteGenre;
     }
 
+
     @Override
     public String toString() {
         return "Author{" +

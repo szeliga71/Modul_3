@@ -163,7 +163,7 @@ public class Main {
 
         library.addAuthor(new Author("Piotrowski",47,"Suspens"));
 
-        library.addBookToAuthor("Piotrowski",new Book("Pokoj 657","Suspens",487));
+        library.addBookToAuthorForLoop("Piotrowski",new Book("Pokoj 657","Suspens",487));
 
         System.out.println();
 
@@ -178,8 +178,28 @@ public class Main {
         library.getAllBooks();
 
         System.out.println();
+        library.getBooksOfAuthorToListStream("Jancio wodnik");
 
-        library.getBooksOfAuthor("Kowalski");
+        library.getBooksOfAuthorToListForLoop("Jancio wodnik");
+
+        library.getBooksOfAuthorToListForLoop(null);
+        library.getBooksOfAuthorToListForLoop("");
+
+
+        System.out.println(" test" );
+        library.getBooksOfAuthorForLoop("Kowalski");
+        System.out.println(" po tescie");
+
+        library.getBooksOfAuthorToListStream("Kowalski");
+
+        //library.getBooksOfAuthorToListStream(null);
+
+        System.out.println();
+        System.out.println(library.getAllBooksToListStream());
+        System.out.println();
+
+        System.out.println(library.getAllBooksToListLoopFor());
+
 
 
 
