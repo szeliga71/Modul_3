@@ -1,13 +1,10 @@
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
-import zad4.Student;
 import zad5.Author;
 import zad5.Book;
 import zad5.Library;
-
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class LibraryMetodsTest {
 
@@ -61,105 +58,213 @@ public class LibraryMetodsTest {
         source.addAll(komediaTest);
         source.addAll(kryminalTest);
     }
-/*
-     public void addBookToAuthorForLoop(String authorName, Book book) {
 
-        for (Author author : libraryOperationList.keySet()) {
-            if (authorName.equals(author.getName())) {
-                libraryOperationList.get(author).add(book);
 
-            }
-        }
-    }
-    public void addBookToAuthorStream(String authorName, Book book) {
 
-        libraryOperationList.entrySet().stream()
-                .filter(entry -> authorName.equals(entry.getKey().getName()))
-                .findFirst()
-                .ifPresentOrElse(
-                        entry -> entry.getValue().add(book),
-                        () -> System.out.println(" nie znaleziono autora o nazwisku " + authorName)
-                );
-
-    }
-        public void addAuthor(Author author) {
-        libraryOperationList.put(author, new ArrayList<>());
-    }
-    ==================================================================================================================
-        public List<Book> getBooksOfAuthorToListForLoop(String authorName) {
-
-        List<Book> authorBooks = new ArrayList<>();
-
-        for (Map.Entry<Author, List<Book>> entry : libraryOperationList.entrySet()) {
-            if (authorName.equals(entry.getKey().getName())) {
-                authorBooks = entry.getValue();
-            }
-        }
-        return authorBooks;
-    }
-
-    public List<Book> getBooksOfAuthorToListStream(String authorName) {
-        return libraryOperationList.entrySet().stream()
-                .filter(entry -> authorName.equals(entry.getKey().getName()))
-                .flatMap(entry -> entry.getValue().stream())
+    @Test
+    public void addBookToAuthorForLoopAllOkTest(){
+        prepare();
+        Book bookTest=new Book("TestBook","Romans",987);
+        libTest.addBookToAuthorStream("Malinowski",bookTest);
+        List<Book>malinowskiBook=libraryMapTest.entrySet().stream()
+                .filter(key->key.getKey().getName().equals("Malinowski"))
+                .flatMap(entry->entry.getValue()
+                        .stream()).sorted()
                 .collect(Collectors.toList());
+        Assertions.assertArrayEquals(malinowskiBook.toArray(),libTest.getBooksOfAuthorToListForLoop("Malinowski").toArray());
+    }
+    @Test
+    public void addBookToAuthorForLoopNullAuthorTest() {
+        prepare();
+    Book bookTest=new Book("TestBook","Romans",987);
+        libTest.addBookToAuthorStream(null,bookTest);
+        Assertions.assertNotEquals(null,libTest.getBooksOfAuthorToListStream(null).toArray());
     }
 
-    public List<Author> getAllAuthorsToList() {
-
-        return new ArrayList<>(libraryOperationList.keySet());
-
+    @Test
+    public void addBookToAuthorForLoopEmptyAuthorTest() {
+        prepare();
+        Book bookTest=new Book("TestBook","Romans",987);
+        libTest.addBookToAuthorStream("",bookTest);
+        Assertions.assertNotEquals(null,libTest.getBooksOfAuthorToListStream(null).toArray());
+    }
+    @Test
+    public void addBookToAuthorForLoopEmptyAuthorNullBookTest() {
+        prepare();
+        libTest.addBookToAuthorStream("",null);
+        Assertions.assertNotEquals(null,libTest.getBooksOfAuthorToListStream(null).toArray());
     }
 
-    public List<Book> getAllBooksToListLoopFor() {
-
-        List<Book> allBooks = new ArrayList<>();
-
-        for (List<Book> book : libraryOperationList.values()) {
-            allBooks.addAll(book);
-        }
-        return allBooks;
+    @Test
+    public void addBookToAuthorStreamAllOKTest(){
+        prepare();
+        Book bookTest=new Book("TestBook","Romans",987);
+        libTest.addBookToAuthorStream("Malinowski",bookTest);
+        List<Book>malinowskiBook=libraryMapTest.entrySet().stream()
+                .filter(key->key.getKey().getName().equals("Malinowski"))
+                .flatMap(entry->entry.getValue()
+                        .stream()).sorted()
+                .collect(Collectors.toList());
+        Assertions.assertArrayEquals(malinowskiBook.toArray(),libTest.getBooksOfAuthorToListStream("Malinowski").toArray());
+    }
+    @Test
+    public void addBookToAuthorStreamNullAuthorTest(){
+        prepare();
+        Book bookTest=new Book("TestBook","Romans",987);
+        libTest.addBookToAuthorStream(null,bookTest);
+        Assertions.assertNotEquals(null,libTest.getBooksOfAuthorToListStream(null).toArray());
+    }
+    @Test
+    public void addBookToAuthorStreamEmptyAuthorTest(){
+        prepare();
+        Book bookTest=new Book("TestBook","Romans",987);
+        libTest.addBookToAuthorStream("",bookTest);
+        Assertions.assertNotEquals(null,libTest.getBooksOfAuthorToListStream(null).toArray());
+    }
+    @Test
+    public void addBookToAuthorStreamEmptyAuthorNullBookTest(){
+        prepare();
+        libTest.addBookToAuthorStream("",null);
+        Assertions.assertNotEquals(null,libTest.getBooksOfAuthorToListStream(null).toArray());
     }
 
-    public List<Book> getAllBooksToListStream() {
-
-        return libraryOperationList.values().stream().flatMap(List::stream).collect(Collectors.toList());
+    @Test
+    public void addAuthorNewAuthorTest(){
+        prepare();
+        Author authorTest=new Author("Sienkiewicz",55,"kryminal");
+        libraryMapTest.put(authorTest,new ArrayList<>());
+        Assertions.assertEquals(libraryMapTest.keySet(),libTest.getAllAuthorsToSet());
     }
-    ==================================================================================================================
- */
+    @Test
+    public void addAuthorNewAuthorTest1(){
+        prepare();
+        Author authorTest=new Author("Sienkiewicz",55,"kryminal");
+        libTest.addAuthor(authorTest);
+        Assertions.assertEquals(libraryMapTest.keySet(),libTest.getAllAuthorsToSet());
+    }
+    @Test
+    public void addAuthorNullAuthorTest(){
+        prepare();
+        libTest.addAuthor(null);
+        Assertions.assertEquals(libraryMapTest.keySet(),libTest.getAllAuthorsToSet());
+    }
+    @Test
+    public void addAuthorMapNullTest(){
+        prepare();
+        Author authorTest=new Author("Sienkiewicz",55,"kryminal");
+        libraryMapTest=null;
+        libTest.addAuthor(authorTest);
+        Assertions.assertNotEquals(null,libTest.getAllAuthorsToSet());
+    }
 
+    /*public void addAuthor(Author author) {
+        libraryOperationList.put(author, new ArrayList<>());*/
 
     @Test
-    public void addBookToAuthorForLoopTest(){}                     //  arg (String authorName, Book book)
-    @Test
-   public void addBookToAuthorTest(){}                             // arg(String authorName, Book book)
-    @Test
-    public void addBookToAuthorStreamTest(){}                      // arg (String authorName, Book book)
+    public void getBooksOfAuthorToListForLoopAllOKTest() {
+        prepare();
+        List<Book>malinowskiBooks=libraryMapTest.entrySet().stream()
+                .filter(key->key.getKey().getName().equals("Malinowski")).
+                flatMap(entry->entry.getValue().stream()).sorted()
+                .collect(Collectors.toList());
+        Assertions.assertArrayEquals(malinowskiBooks.toArray(),libTest.getBooksOfAuthorToListStream("Malinowski").toArray());
+    }
 
     @Test
-    public void addAuthorTest(){}                                  //Author author
+    public void getBooksOfAuthorToListNullAuthorNameTest() {
+        prepare();
+        List<Book> booksEmpty = new ArrayList<>();
+        Assertions.assertArrayEquals(booksEmpty.toArray(), libTest.getBooksOfAuthorToListStream(null).toArray());
+    }
+    @Test
+    public void getBooksOfAuthorToListIllegalAuthorNameTest() {
+        prepare();
+        List<Book> booksEmpty = new ArrayList<>();
+        Assertions.assertArrayEquals(booksEmpty.toArray(), libTest.getBooksOfAuthorToListStream("Max Kolonko").toArray());
+    }
+    @Test
+    public void getBooksOfAuthorToListEmptyAuthorNameTest() {
+        prepare();
+        List<Book> booksEmpty = new ArrayList<>();
+        Assertions.assertArrayEquals(booksEmpty.toArray(), libTest.getBooksOfAuthorToListStream("").toArray());
+    }
 
     @Test
-    public void getBooksOfAuthorToListForLoopTest(){}   // return List<Book>   arg (String authorName)
-
-
-
-
-
+    public void getBooksOfAuthorToListForLoopNullAuthorNameTest() {
+        prepare();
+        List<Book>malinowskiBooks=libraryMapTest.entrySet().stream()
+                .filter(key->key.getKey().getName().equals("Nowak")).
+                flatMap(entry->entry.getValue().stream()).sorted()
+                .collect(Collectors.toList());
+        Assertions.assertNotEquals(malinowskiBooks.toArray(),libTest.getBooksOfAuthorToListStream(null).toArray());
+    }
     @Test
-    public void getBooksOfAuthorToListStreamTest(){}// return List<Book>  arg(String authorName)
+    public void getBooksOfAuthorToListForLoopEmptyAuthorNameTest() {
+        prepare();
+
+        List<Book>malinowskiBooks=libraryMapTest.entrySet().stream()
+                .filter(key->key.getKey().getName().equals("Nowak")).
+                flatMap(entry->entry.getValue().stream()).sorted()
+                .collect(Collectors.toList());
+        Assertions.assertNotEquals(malinowskiBooks.toArray(),libTest.getBooksOfAuthorToListStream("").toArray());
+    }
+    @Test
+    public void getBooksOfAuthorToListForLoopIllegalAuthorNameTest() {
+        prepare();
+
+        List<Book>malinowskiBooks=libraryMapTest.entrySet().stream()
+                .filter(key->key.getKey().getName().equals("Nowak")).
+                flatMap(entry->entry.getValue().stream()).sorted()
+                .collect(Collectors.toList());
+        Assertions.assertNotEquals(malinowskiBooks.toArray(),libTest.getBooksOfAuthorToListStream("Strus Pedziwiatr").toArray());
+    }
+    @Test
+    public void getBooksOfAuthorToListStreamAllOkTest(){
+        prepare();
+        List<Book>malinowskiBooks=libraryMapTest.entrySet().stream()
+                .filter(key->key.getKey().getName().equals("Malinowski")).
+                flatMap(entry->entry.getValue().stream()).sorted()
+                .collect(Collectors.toList());
+        Assertions.assertArrayEquals(malinowskiBooks.toArray(),libTest.getBooksOfAuthorToListStream("Malinowski").toArray());
+    }
+     @Test
+    public void getBooksOfAuthorToListStreamNullAuthorNameTest1(){
+        prepare();
+        List<Book>malinowskiBooks=libraryMapTest.entrySet().stream()
+                .filter(key->key.getKey().getName().equals("Malinowski")).
+                flatMap(entry->entry.getValue().stream()).sorted()
+                .collect(Collectors.toList());
+
+        Assertions.assertNotEquals(malinowskiBooks.toArray(),libTest.getBooksOfAuthorToListStream(null).toArray());
+    }
+    @Test
+    public void getBooksOfAuthorToListStreamNullAuthorNameTest2(){
+        prepare();
+        List<Book>booksEmpty=new ArrayList<>();
+        Assertions.assertArrayEquals(booksEmpty.toArray(),libTest.getBooksOfAuthorToListStream(null).toArray());
+    }
+     @Test
+    public void getBooksOfAuthorToListStreamEmptyAuthorNameTest1(){
+        prepare();
+        List<Book>malinowskiBooks=libraryMapTest.entrySet().stream()
+                .filter(key->key.getKey().getName().equals("Kowalski")).
+                flatMap(entry->entry.getValue().stream()).sorted()
+                .collect(Collectors.toList());
+
+        Assertions.assertNotEquals(malinowskiBooks.toArray(),libTest.getBooksOfAuthorToListStream("").toArray());
+    }
     @Test
     public void getBooksOfAuthorToListStreamEmptyAuthorNameTest(){
         prepare();
         List<Book>booksEmpty=new ArrayList<>();
         Assertions.assertArrayEquals(booksEmpty.toArray(),libTest.getBooksOfAuthorToListStream("").toArray());
     }
-    /*@Test
+    @Test
     public void getBooksOfAuthorToListStreamNullAuthorNameTest(){
         prepare();
         List<Book>booksEmpty=new ArrayList<>();
         Assertions.assertNotEquals(booksEmpty.toArray(),libTest.getBooksOfAuthorToListStream(null).toArray());
-    }*/
+    }
     @Test
     public void getBooksOfAuthorToListStreamIllegalAuthorNameTest(){
         prepare();
@@ -186,13 +291,13 @@ public class LibraryMetodsTest {
         Assertions.assertNotEquals(authors,libTest.getAllAuthorsToSet());
     }
 
-   /* public void getAllAuthorsToSetNullMapTest(){
+   @Test
+    public void getAllAuthorsToSetNullMapTest(){
         prepare();
         Set<Author>authors=new HashSet<>(libraryMapTest.keySet());
         libraryMapTest=null;
-        Assertions.assertThrows(NullPointerException.class, ()-> { libTest.getAllAuthorsToSet(); });
-        //Assertions.assertNotEquals(authors,libTest.getAllAuthorsToSet());
-    }*/
+        Assertions.assertEquals(authors,libTest.getAllAuthorsToSet());
+    }
 
     @Test
     public void getAllBooksToListLoopForTest(){

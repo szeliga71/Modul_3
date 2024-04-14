@@ -185,6 +185,9 @@ public class Main {
         library.getBooksOfAuthorToListForLoop(null);
         library.getBooksOfAuthorToListForLoop("");
 
+        System.out.println(" ostatmia linia");
+        System.out.println(library.getAllAuthorsToSet());
+
 
         System.out.println(" test" );
         library.getBooksOfAuthorForLoop("Kowalski");
@@ -198,7 +201,7 @@ public class Main {
         System.out.println(library.getAllBooksToListStream());
         System.out.println();
 
-        System.out.println(library.getAllBooksToListLoopFor());
+        System.out.println(library.getAllAuthorsToSet());
 
 
 

@@ -41,13 +41,15 @@ public class Library {
     }
     public void addBookToAuthorStream(String authorName, Book book) {
 
-        libraryOperationList.entrySet().stream()
-                .filter(entry -> authorName.equals(entry.getKey().getName()))
-                .findFirst()
-                .ifPresentOrElse(
-                        entry -> entry.getValue().add(book),
-                        () -> System.out.println(" nie znaleziono autora o nazwisku " + authorName)
-                );
+        if((authorName!=null)&&(book!=null)&&(!authorName.isEmpty())) {
+            libraryOperationList.entrySet().stream()
+                    .filter(entry -> authorName.equals(entry.getKey().getName()))
+                    .findFirst()
+                    .ifPresentOrElse(
+                            entry -> entry.getValue().add(book),
+                            () -> System.out.println(" nie znaleziono autora o nazwisku " + authorName)
+                    );
+        }
 
     }
 
@@ -90,7 +92,9 @@ public class Library {
     }
 
     public void addAuthor(Author author) {
+        if ((libraryOperationList != null)&&(author!=null)) {
         libraryOperationList.put(author, new ArrayList<>());
+    }
     }
 
 //========================================================================
@@ -106,27 +110,33 @@ public class Library {
                 authorBooks = entry.getValue();
             }
         }
+        authorBooks.sort(Comparator.comparing(Book::getNumberOfPages));
             return authorBooks;
-        }else{System.out.println("prosze podac prawidlowy argument");}
+        }
+        else{
+            System.out.println("podano nieprawidlowy argument!");}
 
         return authorBooks;
     }
 
     public List<Book> getBooksOfAuthorToListStream(String authorName) {
+        if((authorName!=null)&&(!authorName.isEmpty())){
         return libraryOperationList.entrySet().stream()
                 .filter(entry -> authorName.equals(entry.getKey().getName()))
-                .flatMap(entry -> entry.getValue().stream())
+                .flatMap(entry -> entry.getValue().stream()).sorted()
                 .collect(Collectors.toList());
+    }else{return Collections.emptyList();
+        }
     }
+
 
     public Set<Author> getAllAuthorsToSet() {
 
-        if(libraryOperationList==null){
-            throw new NullPointerException(" Mapa nie istnieje jest nullem!");
-        }
+        if ((libraryOperationList != null) && (!libraryOperationList.isEmpty())) {
         return new HashSet<>(libraryOperationList.keySet());
-
-    }
+    }else{
+            return Collections.emptySet();}
+        }
 
     public List<Book> getAllBooksToListLoopFor() {
 
